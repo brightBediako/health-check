@@ -113,11 +113,3 @@ health-check-service/
 5. The response is returned with `200 OK` if all services are healthy, or `503 Service Unavailable` if any critical service is unhealthy.
 
 ---
-
-## 6. Deployment Notes
-
-- **Stateless** design allows multiple instances behind a load balancer.  
-- Orchestrators (Kubernetes, Docker, etc) can use `/health` for readiness and liveness probes.  
-- Monitoring tools (Prometheus, Grafana, Datadog) can scrape `/health` to visualize service status.  
-
----

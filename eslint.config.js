@@ -1,0 +1,33 @@
+module.exports = {
+  languageOptions: {
+    ecmaVersion: 2021,
+    sourceType: "module",
+    globals: {
+      console: "readonly",
+      process: "readonly",
+      Buffer: "readonly",
+      __dirname: "readonly",
+      __filename: "readonly",
+      global: "readonly",
+      module: "readonly",
+      require: "readonly",
+      exports: "readonly",
+      jest: "readonly",
+      describe: "readonly",
+      test: "readonly",
+      expect: "readonly",
+      beforeEach: "readonly",
+      afterEach: "readonly",
+      beforeAll: "readonly",
+      afterAll: "readonly",
+    },
+  },
+  rules: {
+    "indent": ["error", 2],
+    "quotes": ["error", "double"],
+    "semi": ["error", "always"],
+    "comma-dangle": ["error", "always-multiline"],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-console": "off",
+  },
+};

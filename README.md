@@ -2,54 +2,121 @@
 
 A simple health check service that monitors 3 endpoints and exposes metrics via `/health`.
 
+## Features
+
+- ✅ **Simple Health Monitoring**: Monitors 3 configurable endpoints
+- ✅ **Parallel Health Checks**: Concurrent execution of all service checks
+- ✅ **Timeout Handling**: Configurable timeouts for each health check
+- ✅ **Basic Testing**: Essential tests to verify functionality
+- ✅ **Graceful Shutdown**: Proper cleanup on SIGINT signals
+
 ## Quick Start
 
-This service monitors three internal endpoints and provides aggregated health metrics through a single `/health` endpoint.
+### Prerequisites
+
+- Node.js 14+
+- npm 6+
+
+### Installation
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd health-check
+
+# Install dependencies
+npm install
+
+# Start the server
+npm start
+```
+
+The service will start on `http://localhost:3000` by default.
 
 ## Commands
 
-- `npm start` - Start the production server
-- `npm run dev` - Start the development server
-- `npm test` - Run the test suite
+| Command     | Description                 |
+| ----------- | --------------------------- |
+| `npm start` | Start the production server |
+| `npm test`  | Run the test suite          |
 
-## Environment Variables
+## Configuration
 
-Configure the service using the following environment variables:
+Configure the service using environment variables:
 
-- `PORT` - Server port (default: 3000)
-- `SERVICE_A_URL` - URL for Service A health check
-- `SERVICE_B_URL` - URL for Service B health check  
-- `SERVICE_C_URL` - URL for Service C health check
-- `HEALTH_TIMEOUT_MS` - Timeout for health checks in milliseconds
-- `HEALTH_CACHE_TTL` - Cache TTL for health results in seconds
+| Variable            | Default                        | Description                              |
+| ------------------- | ------------------------------ | ---------------------------------------- |
+| `PORT`              | `3000`                         | Server port                              |
+| `SERVICE_1_URL`     | `http://localhost:3001/health` | First service health endpoint            |
+| `SERVICE_2_URL`     | `http://localhost:3002/health` | Second service health endpoint           |
+| `SERVICE_3_URL`     | `http://localhost:3003/health` | Third service health endpoint            |
+| `HEALTH_TIMEOUT_MS` | `5000`                         | Timeout for health checks (milliseconds) |
 
-## Architecture
-
-This service follows the MVC (Model-View-Controller) pattern:
-
-- **Models**: Service health check modules in `src/services/`
-- **Views**: JSON response formatting in `src/routes/`
-- **Controllers**: Health check orchestration in `src/routes/health.routes.js`
-
-## API Endpoints
+## API Documentation
 
 ### GET /health
 
-Returns the overall health status and individual service statuses.
+Returns aggregated health status for all monitored services.
+
+**Request:**
+
+```http
+GET /health
+```
 
 **Response Format:**
+
 ```json
 {
   "overall": "healthy|unhealthy",
-  "timestamp": "2025-09-05T20:00:00Z",
+  "timestamp": "2025-09-06T10:53:25.274Z",
   "services": {
-    "serviceA": { "status": "healthy", "latencyMs": 50 },
-    "serviceB": { "status": "unhealthy", "latencyMs": null, "message": "timeout" },
-    "serviceC": { "status": "healthy", "latencyMs": 40 }
+    "service1": {
+      "name": "service1",
+      "status": "healthy|unhealthy",
+      "latencyMs": 150,
+      "message": "HTTP 200|timeout|connection refused|..."
+    },
+    "service2": { ... },
+    "service3": { ... }
   }
 }
 ```
 
 **HTTP Status Codes:**
+
 - `200 OK` - All services are healthy
 - `503 Service Unavailable` - One or more services are unhealthy
+- `500 Internal Server Error` - Health check system error
+
+## Testing
+
+```bash
+# Run all tests
+npm test
+```
+
+**Test Coverage:**
+
+- ✅ **Integration Tests**: 3 tests covering the `/health` endpoint
+- ✅ **Mocking**: Proper HTTP client mocking for reliable tests
+- ✅ **Error Scenarios**: Timeout and error handling
+
+## File Structure
+
+```
+health-check/
+├── src/                    # Source code
+│   ├── config/            # Configuration
+│   ├── services/          # Service health checks
+│   ├── routes/            # API routes
+│   ├── app.js             # Express app setup
+│   └── server.js          # Server entry point
+├── test/                  # Test files
+├── package.json          # Dependencies and scripts
+└── README.md             # This file
+```
+
+## License
+
+MIT License - see LICENSE file for details.

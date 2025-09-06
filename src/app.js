@@ -1,30 +1,16 @@
-/**
- * Express application setup
- * Main app initialization with middleware and route mounting
- */
-
 const express = require("express");
-const config = require("./config");
 const healthRoutes = require("./routes/health.routes");
 
-// Create Express app
 const app = express();
 
-// Middleware
-app.use(express.json()); // JSON parsing middleware
-app.use(express.urlencoded({ extended: true })); // URL-encoded parsing middleware
+// Basic middleware
+app.use(express.json());
 
-// Basic logging middleware
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-  next();
-});
-
-// Mount routes
+// Mount health routes
 app.use("/", healthRoutes);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
+// Error handling
+app.use((err, req, res, _next) => {
   console.error("Error:", err.message);
   res.status(500).json({ error: "Internal server error" });
 });

@@ -1,20 +1,37 @@
-/**
- * Service 3 health check
- * Monitors Service 3 endpoint
- */
+const axios = require("axios");
+const config = require("../config");
 
-/**
- * Check the health of Service 3
- * @returns {Promise<Object>} Health check result
- */
 async function check() {
-  // Stub implementation - always returns healthy
-  return {
-    status: 'healthy',
-    latencyMs: 0
-  };
+  const startTime = Date.now();
+
+  try {
+    const response = await axios.get(config.service3Url, {
+      timeout: config.healthTimeoutMs,
+    });
+
+    const latencyMs = Date.now() - startTime;
+
+    return {
+      name: "service3",
+      status: "healthy",
+      latencyMs: latencyMs,
+      message: `HTTP ${response.status}`,
+    };
+  } catch (error) {
+    const latencyMs = Date.now() - startTime;
+    const message = error.message.includes("timeout")
+      ? "timeout"
+      : error.code === "ECONNREFUSED"
+        ? "connection refused"
+        : error.message;
+
+    return {
+      name: "service3",
+      status: "unhealthy",
+      latencyMs: latencyMs,
+      message: message,
+    };
+  }
 }
 
-module.exports = {
-  check
-};
+module.exports = { check };
