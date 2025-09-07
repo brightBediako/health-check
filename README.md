@@ -1,12 +1,11 @@
 # Health Check Service
 
-A simple health check service that monitors 3 endpoints and exposes metrics via `/health`.
+A production-ready health check service that monitors 3 endpoints and exposes metrics via `/health`. Built with functional programming principles and industry standards.
 
 ## Features
 
 - ✅ **Real-time Health Monitoring** - Monitor 3 service endpoints
 - ✅ **Web Dashboard** - Beautiful, responsive frontend interface
-- ✅ **Auto-refresh** - Automatic status updates every 5 seconds
 - ✅ **Manual Refresh** - On-demand status checking
 - ✅ **Service Details** - Individual service status, latency, and messages
 - ✅ **Responsive Design** - Works on desktop and mobile devices
@@ -14,7 +13,15 @@ A simple health check service that monitors 3 endpoints and exposes metrics via 
 - ✅ **MVC Architecture** - Clean separation of concerns
 - ✅ **Parallel Health Checks** - Concurrent execution of all service checks
 - ✅ **Timeout Handling** - Configurable timeouts for each health check
-- ✅ **Basic Testing** - Essential tests to verify functionality
+- ✅ **Production Ready** - Clean code, zero linting errors, optimized
+
+## Production Features
+
+- **Zero Linting Errors** - ESLint compliant codebase
+- **Clean Code** - No unnecessary comments or test files
+- **Minimal Dependencies** - Only production-essential packages
+- **Error Handling** - Robust error management throughout
+- **Performance Optimized** - Efficient code execution
 
 ## Quick Start
 
@@ -45,17 +52,18 @@ The application includes a modern web dashboard accessible at `http://localhost:
 
 - **Real-time Status** - Live updates of all service health
 - **Service Cards** - Individual service status with latency information
-- **Auto-refresh Toggle** - Enable/disable automatic updates
 - **Manual Refresh** - Instant status checking
 - **Responsive Design** - Optimized for all screen sizes
 - **Error Notifications** - User-friendly error messages
+- **Custom Color Theme** - Professional green color palette
 
 ## Commands
 
-| Command     | Description                 |
-| ----------- | --------------------------- |
-| `npm start` | Start the production server |
-| `npm test`  | Run the test suite          |
+| Command            | Description                      |
+| ------------------ | -------------------------------- |
+| `npm start`        | Start the production server      |
+| `npm run lint`     | Lint the codebase                |
+| `npm run lint:fix` | Fix linting issues automatically |
 
 ## Configuration
 
@@ -135,18 +143,21 @@ GET /health
 - `503 Service Unavailable` - One or more services are unhealthy
 - `500 Internal Server Error` - Health check system error
 
-## Testing
+## Code Quality
 
 ```bash
-# Run all tests
-npm test
+# Lint the codebase
+npm run lint
+
+# Fix linting issues automatically
+npm run lint:fix
 ```
 
-**Test Coverage:**
+**Code Standards:**
 
-- ✅ **Integration Tests**: 3 tests covering the `/health` endpoint
-- ✅ **Mocking**: Proper HTTP client mocking for reliable tests
-- ✅ **Error Scenarios**: Timeout and error handling
+- ✅ **ESLint Compliance**: Zero linting errors
+- ✅ **Clean Code**: No unnecessary comments, production-ready
+- ✅ **Industry Standards**: Follows best practices and conventions
 
 ## File Structure
 
@@ -171,8 +182,8 @@ health-check/
 │   ├── routes/           # API routes
 │   ├── app.js            # Express app setup
 │   └── server.js         # Server entry point
-├── test/                 # Test files
-├── package.json          # Dependencies and scripts
+├── package.json          # Production dependencies only
+├── eslint.config.js      # Linting configuration
 └── README.md             # This file
 ```
 
