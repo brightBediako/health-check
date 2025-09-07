@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const healthRoutes = require("./routes/health.routes");
 
 const app = express();
@@ -6,8 +7,16 @@ const app = express();
 // Basic middleware
 app.use(express.json());
 
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, "../public")));
+
 // Mount health routes
 app.use("/", healthRoutes);
+
+// Serve frontend dashboard
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../public/views/index.html"));
+});
 
 // Error handling
 app.use((err, req, res, _next) => {

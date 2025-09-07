@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Check Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Health Check Dashboard</h1>
+            <p class="subtitle">Real-time monitoring of service endpoints</p>
+        </header>
+
+        <div class="controls">
+            <button id="refreshBtn" class="btn btn-primary">
+                <span class="btn-icon">🔄</span>
+                Refresh Status
+            </button>
+            <div class="last-updated">
+                Last updated: <span id="lastUpdated">Never</span>
+            </div>
+        </div>
+
+        <div class="status-overview">
+            <div class="overall-status" id="overallStatus">
+                <div class="status-indicator" id="statusIndicator">⏳</div>
+                <div class="status-text">
+                    <h2 id="overallText">Checking...</h2>
+                    <p id="overallMessage">Initializing health checks</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-grid" id="servicesGrid">
+        </div>
+
+        <div class="loading" id="loadingIndicator">
+            <div class="spinner"></div>
+            <p>Checking service health...</p>
+        </div>
+
+        <footer class="footer">
+            <p>Health Check Service v0.1.0 | Built with ❤️ using Node.js & Express</p>
+        </footer>
+    </div>
+
+    <script src="/js/models/HealthModel.js"></script>
+    <script src="/js/controllers/HealthController.js"></script>
+    <script src="/js/utils/Utils.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+
+</html>
